@@ -1,0 +1,117 @@
+---
+title: "FORMATIVE ASSESSMENT 6"
+author: "Lindsy Rossel C. Masicat"
+date: "2024-02-28"
+output: html_document
+---
+
+## I. Geometric Distribution
+
+### Provide an R code for the geometric distribution. The geometric distribution is a probability distribution that models the number of trials required to achieve the first success in a sequence of Bernoulli trials, where each trial has a constant probability of success.
+
++ 1. Set the probability of success
+``` {r prob}    
+    p <- 0.2
+```
+
++ 2. Generate 1000 random variables from the geometric distribution.
+
+``` {r gen}  
+
+    rand_var <- 1000
+
+    x <- rgeom(rand_var, p) + 1
+    x
+```
+
++ 3. Calculate some basic statistics:
+<br> mean_x = mean
+<br> var_x = variance
+<br> sd_x = standard deviation
+
+``` {r calc}
+
+    mean_x <- mean(x)
+    var_x <- var(x)
+    sd_x <- sd(x)
+    
+```
+
++ Print the results in item 3 with the following output (string): 
+  <br> Number of trials required to achieve first success:
+  <br> Mean (in 2 decimal places):
+  <br> Variance (in 2 decimal places):
+  <br> Sandard deviation ( in 2 decimal places):
+
+``` {r print}
+
+    cat("Number of trials required to achieve first success: \n")
+    cat("Mean (in 2 decimal places): ", round(mean_x, 2), "\n")
+    cat("Variance (in 2 decimal places): ", round(var_x, 2), "\n" )
+    cat("Standard deviation (in 2 decimal places): ", round(sd_x, 2), "\n")
+    
+```
+
++ Plot the histogram of the results.
+
+
+```{r x, echo=FALSE}
+hist(
+  x, col = "blue", xlab = "Number of Trials", 
+  main = "Results of Geometric Distribution"
+)
+```
+
+
+## II. Hypergeometric Distribution.  
+### Consider a plant manufacturing IC chips of which 10% are expected to be defective. The chips are packed in boxes for export. Before transportation, a sample is drawn from each box. Estimate the probability that the sample contains more than 10% defectives, when:
+
++ 1. A sample of 10 is selected from a box of 40;
+```{r hypergeometric}
+  
+x <- 2:10
+sample_drawn <- 10
+sample_size <- 40
+def_percent <- 0.1
+num_def <- sample_size*def_percent
+
+prob_1 <- dhyper(x, num_def, sample_size-num_def, sample_drawn)
+prob_1
+totalprob_1 <- sum(prob_1)
+
+cat("The probability that the sample contains more than 10% defectives when 10 samples are drawn from a box of 40 is ", totalprob_1, "\n")
+
+```
++ Plot for sample of 10 selected from a box of 40.
+```{r plot 1}
+
+  plot(x, prob_1,
+  xlab = "Number of defectives", type = "h",
+  ylab = "P(X = x)",
+  main = "N = 40, M = 4, n = 10", font.main = 1)
+```
+
++ 2. A sample of 10 is selected from a box of 5000.
+```{r hypergeometric 2}
+  
+x <- 2:10
+sample_drawn <- 10
+sample_size <- 5000
+def_percent <- 0.1
+num_def <- sample_size*def_percent
+
+prob_2 <- dhyper(x, num_def, sample_size-num_def, sample_drawn)
+prob_2
+totalprob_2 <- sum(prob_2)
+
+cat("The probability that the sample contains more than 10% defectives when 10 samples are drawn from a box of 5000 is ", totalprob_2 , "\n")
+```
+
++ Plot for sample of 10 selected from a box of 5000.
+```{r plot 2}
+
+  plot(x, prob_2,
+  xlab = "Number of defectives", type = "h",
+  ylab = "P(X = x)",
+  main = "N = 5000, M = 500, n = 10", font.main = 1)
+```
